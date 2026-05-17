@@ -117,9 +117,36 @@
 
         .article-body p { font-size: 1.35rem; margin-bottom: 2.5rem; }
 
+        /* Italique et gras dans le corps */
+        .article-body em { font-style: italic; }
+        .article-body strong { font-weight: 900; color: var(--logo-orange); }
+        body.dark-mode .article-body strong { color: var(--logo-yellow); }
+
         .article-body p:first-of-type::first-letter {
             float: left; font-size: 6.5rem; line-height: 0.7; font-weight: 900;
             padding: 15px 15px 0 0; color: var(--logo-orange); text-shadow: 6px 6px 0 #000;
+        }
+
+        /* Images dans le corps de l'article */
+        .article-body .article-image {
+            width: 100%; margin: 40px 0;
+            border: var(--border-black);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 10px 10px 0 #000;
+        }
+        .article-body .article-image img {
+            width: 100%; display: block;
+            object-fit: cover;
+        }
+        .article-body .article-image figcaption {
+            padding: 12px 18px;
+            font-size: 0.9rem; font-weight: 700;
+            background: #f5f5f5;
+            border-top: 3px solid #000;
+        }
+        body.dark-mode .article-body .article-image figcaption {
+            background: #1a1a1a;
         }
 
         blockquote {
@@ -137,6 +164,11 @@
         }
         body.dark-mode blockquote {
             box-shadow: 15px 15px 0 var(--logo-cyan);
+        }
+
+        /* ── GOOGLE ADSENSE ── */
+        .ad-slot {
+            max-width: 850px; margin: 40px auto; padding: 0 25px;
         }
 
         /* ── SECTION PARTAGE ── */
@@ -161,13 +193,6 @@
         .s-fb:hover   { box-shadow: 11px 11px 0 var(--logo-cyan); }
         .s-link { background: var(--logo-orange); color: #fff; }
         .s-link:hover { box-shadow: 11px 11px 0 var(--logo-yellow); }
-
-        .adsense-box {
-            max-width: 900px; margin: 30px auto; padding: 15px;
-            border: 3px dashed #ccc; border-radius: 15px;
-            text-align: center; color: #aaa; font-weight: 900; font-size: 0.8rem;
-            text-transform: uppercase;
-        }
 
         @media (max-width: 768px) {
             nav { height: 80px; grid-template-columns: auto 1fr auto; padding: 0 3%; }
@@ -232,7 +257,7 @@
                 text-align: center; box-shadow: 4px 4px 0 #000;
             }
 
-            .adsense-box { margin: 16px auto; padding: 10px; font-size: .72rem; }
+            .ad-slot { padding: 0 16px; margin: 24px auto; }
         }
     </style>
 </head>
@@ -255,20 +280,17 @@
     </div>
 </nav>
 
-<div class="adsense-box">
-    <!-- Remplacer par votre code Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2218681879881332"
-     crossorigin="anonymous"></script>
-<!-- Pub3DuHaut -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2218681879881332"
-     data-ad-slot="7483516188"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- PUB HAUT -->
+<div class="ad-slot">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2218681879881332" crossorigin="anonymous"></script>
+    <!-- Pub3DuHaut -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2218681879881332"
+         data-ad-slot="7483516188"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <header class="article-hero">
@@ -300,9 +322,17 @@
     </section>
 </main>
 
-<div class="adsense-box">
-    <!-- Remplacer par votre code Google AdSense -->
-    Publicité AdSense
+<!-- PUB BAS -->
+<div class="ad-slot">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2218681879881332" crossorigin="anonymous"></script>
+    <!-- Pub2BasArticle -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2218681879881332"
+         data-ad-slot="7427675863"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <script>
@@ -342,6 +372,52 @@
         });
     }
 
+    // ── PORTABLE TEXT → HTML (avec marks : em, strong) ──
+    function renderSpan(span) {
+        let text = span.text || '';
+        const marks = span.marks || [];
+        if (marks.includes('strong')) text = `<strong>${text}</strong>`;
+        if (marks.includes('em'))     text = `<em>${text}</em>`;
+        return text;
+    }
+
+    function renderBlock(block, isFirst) {
+        if (block._type === 'image') {
+            // Image Sanity
+            const url = block.asset && block.asset._ref
+                ? `https://cdn.sanity.io/images/jf7j0hvz/production/${block.asset._ref.replace('image-', '').replace(/-(\w+)$/, '.$1')}`
+                : null;
+            if (!url) return '';
+            const caption = (block.alt || '').trim();
+            return `<figure class="article-image">
+                <img src="${url}" alt="${caption}" loading="lazy">
+                ${caption ? `<figcaption>${caption}</figcaption>` : ''}
+            </figure>`;
+        }
+
+        if (block._type !== 'block') return '';
+
+        const html = (block.children || []).map(renderSpan).join('');
+        if (!html.trim()) return '';
+
+        if (block.style === 'blockquote') return `<blockquote>"${html}"</blockquote>`;
+        if (block.style === 'h2') return `<h2 style="font-size:2rem;font-weight:900;text-transform:uppercase;margin:60px 0 20px;">${html}</h2>`;
+        if (block.style === 'h3') return `<h3 style="font-size:1.5rem;font-weight:900;text-transform:uppercase;margin:40px 0 15px;">${html}</h3>`;
+        return `<p>${html}</p>`;
+    }
+
+    // PUB IN-ARTICLE (insérée au milieu du contenu)
+    const adMilieu = `<div class="ad-slot" style="margin:50px 0;">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2218681879881332" crossorigin="anonymous"><\/script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-2218681879881332"
+             data-ad-slot="2760461094"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});<\/script>
+    </div>`;
+
     // ── SANITY — FETCH ARTICLE ──
     const slug = new URLSearchParams(window.location.search).get('s');
 
@@ -373,13 +449,11 @@
                     document.getElementById('heroBg').style.backgroundImage = `url('${a.imageUrl}')`;
                 }
 
-                // Catégories (toutes, séparées par " · ")
+                // Catégories
                 const sticker = document.getElementById('artCategory');
-                if (a.categories && a.categories.length > 0) {
-                    sticker.innerText = a.categories.join(' · ');
-                } else {
-                    sticker.innerText = 'Reportage';
-                }
+                sticker.innerText = (a.categories && a.categories.length > 0)
+                    ? a.categories.join(' · ')
+                    : 'Reportage';
 
                 // Auteur
                 document.getElementById('artAuthor').innerText = '✍️ Par ' + (a.author || 'Valentin V.');
@@ -389,7 +463,7 @@
                     document.getElementById('artDate').innerText = '📅 ' + new Date(a.publishedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
                 }
 
-                // Corps de l'article (Portable Text → HTML)
+                // Corps de l'article
                 if (a.body) {
                     let wordCount = 0;
                     a.body.forEach(block => {
@@ -399,17 +473,18 @@
                         }
                     });
 
-                    document.getElementById('artContent').innerHTML = a.body.map(block => {
-                        if (block._type !== 'block') return '';
-                        const text = (block.children || []).map(c => c.text || '').join('');
-                        if (!text.trim()) return '';
-                        if (block.style === 'blockquote') return `<blockquote>"${text}"</blockquote>`;
-                        if (block.style === 'h2') return `<h2 style="font-size:2rem;font-weight:900;text-transform:uppercase;margin:60px 0 20px;">${text}</h2>`;
-                        if (block.style === 'h3') return `<h3 style="font-size:1.5rem;font-weight:900;text-transform:uppercase;margin:40px 0 15px;">${text}</h3>`;
-                        return `<p>${text}</p>`;
-                    }).join('');
+                    const blocks = a.body;
+                    const mid = Math.floor(blocks.length / 2);
+                    let htmlParts = blocks.map((block, i) => renderBlock(block, i === 0));
 
-                    // Temps de lecture estimé
+                    // Insérer la pub au milieu
+                    htmlParts.splice(mid, 0, adMilieu);
+
+                    document.getElementById('artContent').innerHTML = htmlParts.join('');
+
+                    // Reinitialiser AdSense sur les nouvelles ins (ins ajoutées dynamiquement)
+                    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+
                     const minutes = Math.max(1, Math.round(wordCount / 200));
                     document.getElementById('artReadTime').innerText = `⏱️ ${minutes} min de lecture`;
                 }
@@ -425,10 +500,13 @@
         document.getElementById('artCategory').innerText = 'Reportage';
         document.getElementById('artTitle').innerText = "L'information n'a jamais été aussi brute.";
         document.getElementById('artContent').innerHTML = `
-            <p>Bienvenue dans cet article de fond. L'objectif ici est de vous proposer une immersion totale.</p>
+            <p>Bienvenue dans cet article de fond. L'objectif ici est de vous proposer une <strong>immersion totale</strong>.</p>
             <blockquote>"Le journalisme moderne doit être aussi impactant visuellement que par ses mots."</blockquote>
-            <p>Lorsque vous intégrerez Sanity, vous pourrez faire varier la couleur du sticker de catégorie.</p>
+            <p>Lorsque vous intégrerez Sanity, vous pourrez faire varier la couleur du sticker de catégorie. Les mots en <em>italique</em> et en <strong>gras</strong> seront rendus automatiquement.</p>
+            ${adMilieu}
+            <p>Les images issues de Sanity s'afficheront également dans le corps de l'article avec leur légende.</p>
         `;
+        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
         setupSharing();
     }
 
