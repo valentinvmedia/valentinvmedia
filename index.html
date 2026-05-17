@@ -200,12 +200,7 @@
         }
         .grid-row::-webkit-scrollbar { display: none; }
 
-        .scroll-gradient-overlay {
-            position: absolute; right: -10px; top: 0; bottom: 50px; width: 200px;
-            background: linear-gradient(to right, transparent, #fff);
-            pointer-events: none; z-index: 5;
-        }
-        body.dark-mode .scroll-gradient-overlay { background: linear-gradient(to right, transparent, #080808); }
+        .scroll-gradient-overlay { display: none; }
 
         .floating-arrow {
             position: absolute; right: 0; top: 45%; transform: translateY(-50%);
@@ -395,15 +390,92 @@
             :root { --card-width: 320px; }
         }
         @media (max-width: 768px) {
-            nav { height: 70px; }
+            nav { height: 70px; padding: 0 4%; }
             .nav-logo { height: 54px; }
             .section-title { font-size: 2rem; }
             .scroll-gradient-overlay,
             .floating-arrow { display: none; }
             :root { --card-width: 280px; --card-img-height: 180px; }
+            .container { padding: 0 20px; margin: 60px auto; }
             .adsense-zone { padding: 0 16px; }
             .podcast-box { padding: 44px 20px; font-size: 1.2rem; }
             .social-btn { font-size: 1rem; padding: 14px 24px; }
+            .social-container { gap: 14px; }
+            .carousel-wrapper { height: 50vh; min-height: 320px; box-shadow: 10px 10px 0 #000; }
+            .top-section { padding: 24px 0 80px; }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --card-width: calc(100vw - 48px);
+                --card-img-height: 200px;
+                --border-black: 3px solid #000;
+            }
+
+            /* Nav */
+            nav { height: 60px; padding: 0 16px; }
+            .nav-logo { height: 44px; }
+            .dark-btn { font-size: .75rem; padding: 8px 14px; box-shadow: 3px 3px 0 var(--logo-orange); }
+
+            /* Hero */
+            .top-section { padding: 16px 0 60px; }
+            .carousel-wrapper {
+                width: 92%; border-radius: 18px;
+                height: 44vh; min-height: 260px;
+                box-shadow: 6px 6px 0 #000;
+            }
+            .hero-logo { width: 70%; max-width: 260px; }
+            .slide-content p { font-size: .9rem !important; padding: 6px 14px !important; }
+            .slide-content h2 { font-size: 2.2rem !important; }
+            .slide-content p[style] { font-size: .9rem !important; }
+
+            /* Marquee */
+            .marquee-wrapper { margin-top: -30px; padding: 20px 0; }
+            .pink-marquee { padding: 18px 0; }
+            .marquee-item { font-size: 1.2rem; padding: 0 24px; gap: 12px; }
+
+            /* Layout */
+            .container { padding: 0 16px; margin: 40px auto; }
+            .section-title {
+                font-size: 1.4rem; padding: 8px 18px;
+                box-shadow: 5px 5px 0 var(--logo-orange);
+                margin-bottom: 30px;
+            }
+            .section-title--articles { box-shadow: 5px 5px 0 var(--logo-pink); }
+            .section-title--podcasts { box-shadow: 5px 5px 0 var(--logo-cyan); }
+            .section-title--social   { box-shadow: 5px 5px 0 var(--logo-purple); }
+
+            /* Cards – pleine largeur, scroll horizontal */
+            .grid-row { gap: 20px; padding: 10px 4px 40px; }
+            .card { border-radius: 18px; box-shadow: 6px 6px 0 #000; }
+            body.dark-mode .card { box-shadow: 6px 6px 0 #fff; }
+            .card-body { padding: 18px 20px; }
+            .card-body h3 { font-size: 1.1rem; margin-bottom: 14px; }
+            .btn-read { padding: 10px 18px; font-size: .9rem; box-shadow: 3px 3px 0 #000; }
+
+            /* Skeletons */
+            .skeleton { border-radius: 18px; box-shadow: 6px 6px 0 #000; }
+            .skeleton-body { padding: 18px 20px; }
+
+            /* Podcast */
+            .podcast-box {
+                padding: 32px 16px; font-size: 1rem;
+                border-radius: 18px; border-width: 3px;
+            }
+
+            /* Social */
+            .social-container { flex-direction: column; gap: 12px; }
+            .social-btn {
+                font-size: .95rem; padding: 14px 20px;
+                border-radius: 12px; box-shadow: 5px 5px 0 #000;
+                justify-content: center;
+            }
+
+            /* Adsense */
+            .adsense-zone { padding: 0 12px; }
+            .adsense-banner { min-height: 70px; font-size: .75rem; border-radius: 10px; }
+
+            /* Footer */
+            footer { padding: 60px 16px; font-size: 1rem; }
         }
     </style>
 </head>
