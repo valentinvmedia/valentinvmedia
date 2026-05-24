@@ -1,9 +1,11 @@
+--- START OF FILE Paste May 24, 2026 - 7:34PM ---
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Article — VALENTIN V.</title>
+    <title>Article — DIGN.MÉDIA</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -53,59 +55,110 @@
         /* ── NAV ── */
         nav {
             position: sticky; top: 0; z-index: 1000;
-            display: grid; grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            padding: 0 max(5%, env(safe-area-inset-left));
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%;
             height: 100px;
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border-bottom: 1.5px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
-            transition: background .4s, border-color .4s;
+            transition: background .4s, border-color .4s, box-shadow .4s;
+            gap: 20px;
         }
         body.dark-mode nav {
             background: var(--glass-bg-dark);
             border-bottom-color: var(--glass-border-dark);
             box-shadow: var(--glass-shadow-dark);
         }
-        .nav-logo { height: 75px; width: auto; display: block; margin: 0 auto; filter: drop-shadow(4px 4px 0 #000); transition: .3s; }
-        .nav-left  { display: flex; justify-content: flex-start; align-items: center; }
-        .nav-right { display: flex; justify-content: flex-end; align-items: center; }
 
-        .back-btn {
+        .nav-logo {
+            height: 84px; width: auto; display: block; flex-shrink: 0;
+            filter: drop-shadow(4px 4px 0 #000);
+            margin: 8px 0; transition: .3s;
+        }
+
+        .nav-links {
+            display: flex; align-items: center; gap: 6px;
+            list-style: none; margin: 0; padding: 0;
+            flex: 1; justify-content: flex-start;
+        }
+        .nav-links a {
             font-family: 'Poppins', sans-serif;
-            font-weight: 900; font-size: .72rem;
-            text-transform: uppercase; letter-spacing: .1em;
-            text-decoration: none; color: rgba(0,0,0,0.75);
-            padding: 10px 20px;
+            font-weight: 900; font-size: .78rem;
+            text-transform: uppercase; letter-spacing: .06em;
+            text-decoration: none; color: inherit;
+            padding: 8px 16px;
             border-radius: 50px;
-            border: 2px solid rgba(0,0,0,0.2);
-            background: transparent;
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-            transition: transform .2s var(--ease-spring), box-shadow .2s, background .2s, color .2s, border-color .2s;
+            border: 1.5px solid transparent;
+            transition: background .2s, border-color .2s, color .2s, box-shadow .2s;
             white-space: nowrap;
         }
-        .back-btn:hover {
-            color: #fff; background: var(--logo-orange); border-color: var(--logo-orange);
-            box-shadow: 0 6px 24px rgba(255,107,0,0.55); transform: translateY(-2px) scale(1.04);
+        .nav-links a.nav-home {
+            background: var(--logo-pink); color: #fff;
+            box-shadow: 0 4px 18px rgba(255,26,140,0.35);
         }
-        body.dark-mode .back-btn { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.25); }
-        body.dark-mode .back-btn:hover { color: #fff; background: var(--logo-orange); border-color: var(--logo-orange); box-shadow: 0 6px 24px rgba(255,107,0,0.5); }
+        .nav-links a.nav-home:hover {
+            transform: translateY(-3px) scale(1.12);
+            box-shadow: 0 12px 32px rgba(255,26,140,0.6);
+            background: var(--logo-pink);
+        }
 
-        .dark-btn {
-            font-family: 'Poppins', sans-serif; font-weight: 900; font-size: .85rem;
-            text-transform: uppercase; letter-spacing: .03em;
-            padding: 10px 22px;
-            background: rgba(0,0,0,0.85); color: #fff;
-            border: 1.5px solid rgba(255,255,255,0.25); border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
-            cursor: pointer; backdrop-filter: blur(10px);
-            transition: transform .2s var(--ease-spring), box-shadow .2s, background .2s;
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-content {
+            display: none; position: absolute; top: 100%; left: 0;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            border: 1.5px solid var(--glass-border); border-radius: 18px;
+            min-width: 200px; box-shadow: var(--glass-shadow); z-index: 1001;
+            padding: 10px; margin-top: 10px;
         }
-        .dark-btn:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 8px 28px rgba(255,107,0,0.4); background: var(--logo-orange); }
-        body.dark-mode .dark-btn { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.2); }
-        body.dark-mode .dark-btn:hover { background: var(--logo-yellow); color: #000; box-shadow: 0 8px 28px rgba(255,215,0,0.4); }
+        body.dark-mode .nav-dropdown-content { background: rgba(20,20,40,0.95); border-color: var(--glass-border-dark); }
+        .nav-dropdown:hover .nav-dropdown-content { display: flex; flex-direction: column; gap: 4px; }
+        .nav-dropdown-content a { display: block; width: 100%; padding: 10px 18px; border-radius: 10px; }
+
+        /* ── SEARCH PC ── */
+        .search-container { display: flex; align-items: center; position: relative; margin-right: 10px; }
+        .search-input {
+            width: 0; padding: 10px 0; border: none; background: transparent;
+            outline: none; font-family: inherit; font-weight: 700; font-size: 0.9rem;
+            transition: width 0.4s var(--ease-out); color: inherit; border-bottom: 2px solid transparent;
+        }
+        .search-container:hover .search-input, .search-input:focus { width: 200px; padding: 10px 15px; border-bottom-color: var(--logo-orange); }
+        .search-icon-btn { background: none; border: none; cursor: pointer; color: inherit; display: flex; align-items: center; padding: 10px; border-radius: 50%; }
+
+        /* ── DARK MODE SLIDER ── */
+        .dark-mode-container { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .dark-mode-label { font-family: 'Poppins', sans-serif; font-weight: 900; font-size: .75rem; text-transform: uppercase; opacity: 0.8; }
+        .dark-switch { position: relative; display: inline-block; width: 54px; height: 28px; }
+        .dark-switch input { opacity: 0; width: 0; height: 0; }
+        .dark-slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85); transition: .4s var(--ease-spring); border-radius: 34px;
+            border: 1.5px solid rgba(255,255,255,0.25);
+        }
+        .dark-slider:before {
+            position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 3.5px;
+            background-color: white; transition: .4s var(--ease-spring); border-radius: 50%;
+        }
+        input:checked + .dark-slider { background: var(--logo-orange); }
+        input:checked + .dark-slider:before { transform: translateX(25px); }
+        body.dark-mode .dark-slider { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+        body.dark-mode input:checked + .dark-slider { background: var(--logo-yellow); }
+        body.dark-mode input:checked + .dark-slider:before { background-color: #000; }
+
+        /* Burger / Mobile Menu */
+        .nav-burger { display: none; flex-direction: column; gap: 5px; width: 40px; height: 40px; cursor: pointer; background: none; border: none; }
+        .nav-burger span { display: block; height: 3px; border-radius: 3px; background: currentColor; transition: .3s; }
+        .nav-burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .nav-burger.open span:nth-child(2) { opacity: 0; }
+        .nav-burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .nav-mobile-menu {
+            display: none; position: fixed; top: 70px; left: 0; right: 0; padding: 20px 5%;
+            background: rgba(245,245,247,0.97); backdrop-filter: blur(20px); flex-direction: column; gap: 8px; z-index: 999;
+            transform: translateY(-10px); opacity: 0; transition: .3s var(--ease-out);
+        }
+        .nav-mobile-menu.open { display: flex; transform: translateY(0); opacity: 1; }
+        .nav-mobile-menu a { font-weight: 900; font-size: 1.1rem; text-transform: uppercase; text-decoration: none; color: inherit; padding: 16px 20px; }
 
         /* ── HERO ── */
         .article-hero {
@@ -114,7 +167,7 @@
         }
         .hero-bg {
             position: absolute; inset: 0;
-            background: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=2000') center/cover;
+            background-size: cover; background-position: center;
             z-index: 1; filter: brightness(0.8); transition: transform 8s ease;
         }
         .article-hero:hover .hero-bg { transform: scale(1.02); }
@@ -140,234 +193,94 @@
         .article-title {
             font-size: clamp(2.2rem, 7vw, 5rem); font-weight: 900; line-height: 1;
             color: #fff; text-transform: uppercase; margin: 0;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.6), 0 8px 40px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 20px rgba(0,0,0,0.6);
             letter-spacing: -.01em;
         }
-
-        /* ── SKELETON HERO ── */
-        @keyframes shimmer { 0% { background-position: -800px 0; } 100% { background-position: 800px 0; } }
-        .hero-skeleton-pill {
-            height: 36px; width: 140px; border-radius: 50px; margin-bottom: 20px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.15) 75%);
-            background-size: 800px 100%; animation: shimmer 1.4s infinite linear;
-        }
-        .hero-skeleton-title {
-            height: 60px; width: 75%; border-radius: 12px; margin-bottom: 12px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.2) 75%);
-            background-size: 800px 100%; animation: shimmer 1.4s infinite linear;
-        }
-        .hero-skeleton-title.short { width: 50%; }
 
         /* ── CORPS ── */
         .article-container { max-width: 860px; margin: 60px auto; padding: 0 30px; }
 
         .meta-info {
             display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 50px;
-            padding: 20px 28px;
-            background: rgba(255,255,255,0.65);
+            padding: 20px 28px; background: rgba(255,255,255,0.65);
             border: 1.5px solid rgba(255,255,255,0.7); border-radius: 20px;
             backdrop-filter: saturate(180%) blur(16px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
             font-weight: 700; font-size: .9rem;
         }
-        body.dark-mode .meta-info {
-            background: rgba(30,30,50,0.6); border-color: rgba(255,255,255,0.1);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
-        }
-        .meta-info span { display: flex; align-items: center; gap: 8px; }
-
-        /* ── SKELETON BODY ── */
-        .skeleton-meta {
-            height: 70px; border-radius: 20px; margin-bottom: 50px;
-            background: linear-gradient(90deg, rgba(0,0,0,.06) 25%, rgba(0,0,0,.02) 50%, rgba(0,0,0,.06) 75%);
-            background-size: 800px 100%; animation: shimmer 1.4s infinite linear;
-        }
-        body.dark-mode .skeleton-meta { background: linear-gradient(90deg, rgba(255,255,255,.06) 25%, rgba(255,255,255,.02) 50%, rgba(255,255,255,.06) 75%); background-size: 800px 100%; }
-        .skeleton-line { border-radius: 8px; margin-bottom: 18px;
-            background: linear-gradient(90deg, rgba(0,0,0,.08) 25%, rgba(0,0,0,.03) 50%, rgba(0,0,0,.08) 75%);
-            background-size: 800px 100%; animation: shimmer 1.4s infinite linear;
-        }
-        body.dark-mode .skeleton-line { background: linear-gradient(90deg, rgba(255,255,255,.08) 25%, rgba(255,255,255,.03) 50%, rgba(255,255,255,.08) 75%); background-size: 800px 100%; }
-        .skeleton-line.h1  { height: 28px; width: 95%; }
-        .skeleton-line.h2  { height: 28px; width: 80%; }
-        .skeleton-line.h3  { height: 28px; width: 60%; margin-bottom: 40px; }
-        .skeleton-line.ht  { height: 36px; width: 50%; margin: 40px 0 16px; border-radius: 12px; }
-
-        /* ── ERREUR ── */
-        .error-box {
-            text-align: center; padding: 80px 20px;
-            font-weight: 900; font-size: 1.2rem; text-transform: uppercase;
-            color: var(--logo-pink); opacity: .7;
-        }
+        body.dark-mode .meta-info { background: rgba(30,30,50,0.6); border-color: rgba(255,255,255,0.1); }
 
         .article-body p { font-size: 1.25rem; margin-bottom: 2.2rem; line-height: 1.75; }
+        .article-body b, .article-body strong { font-weight: 900; color: var(--logo-orange); }
+        .article-body i, .article-body em { font-style: italic; }
+        .article-body u { text-decoration: underline; text-decoration-color: var(--logo-pink); text-underline-offset: 4px; }
+        .article-body a { color: var(--logo-pink); font-weight: 700; text-decoration: underline; transition: .2s; }
+        .article-body a:hover { color: var(--logo-orange); }
+        .article-body ul, .article-body ol { margin-bottom: 2.2rem; padding-left: 1.5rem; }
+        .article-body li { font-size: 1.25rem; margin-bottom: 1rem; }
+
         .article-body p:first-of-type::first-letter {
             float: left; font-size: 6rem; line-height: 0.75; font-weight: 900;
             padding: 16px 16px 0 0; color: var(--logo-orange);
             text-shadow: 4px 4px 0 rgba(255,107,0,0.2);
         }
+
         .article-body h2 {
             font-size: 1.9rem; font-weight: 900; text-transform: uppercase;
             margin: 55px 0 18px; display: inline-block;
             background: rgba(0,0,0,0.88); color: #fff;
-            padding: 8px 22px; border-radius: 12px; transform: rotate(-.5deg);
+            padding: 8px 22px; border-radius: 12px;
             box-shadow: 6px 6px 0 var(--logo-cyan);
         }
         body.dark-mode .article-body h2 { background: rgba(255,255,255,0.9); color: #000; }
-        .article-body h3 {
-            font-size: 1.4rem; font-weight: 900; text-transform: uppercase;
-            margin: 40px 0 12px; color: var(--logo-purple);
-        }
-        body.dark-mode .article-body h3 { color: var(--logo-cyan); }
 
         /* ── BLOCKQUOTE ── */
-        .blockquote-wrapper { margin: 72px 0; position: relative; }
         blockquote {
-            margin: 0; padding: 52px 52px 44px 52px; position: relative; z-index: 1;
-            background: #fff; border: 2px solid rgba(255,107,0,0.18); border-radius: 28px;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.07), 0 8px 24px rgba(255,107,0,0.08), inset 0 1px 0 rgba(255,255,255,1);
-            font-size: 1.45rem; font-weight: 800; line-height: 1.65;
-            font-style: normal; color: #161616; overflow: visible;
-            transition: transform .3s var(--ease-spring), box-shadow .3s ease, border-color .3s ease;
+            margin: 72px 0; padding: 60px 52px 52px; background: #fff;
+            border: 2px solid rgba(255,107,0,0.18); border-radius: 28px;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.07);
+            font-size: 1.45rem; font-weight: 800; position: relative;
         }
         blockquote::before {
-            content: '\201C'; position: absolute; top: 10px; left: 36px;
-            font-size: 7rem; line-height: 1; font-weight: 900;
-            color: var(--logo-orange); opacity: 0.22; pointer-events: none; user-select: none;
-            font-family: Georgia, 'Times New Roman', serif;
+            content: '\201C'; position: absolute; top: -35px; left: 15px;
+            font-size: 9rem; color: var(--logo-orange); opacity: 0.25; font-family: serif;
         }
-        .blockquote-wrapper:hover blockquote {
-            transform: translateY(-4px); border-color: rgba(255,107,0,0.35);
-            box-shadow: 0 32px 100px rgba(0,0,0,0.1), 0 12px 36px rgba(255,107,0,0.14);
-        }
-        .bq-text { position: relative; z-index: 1; display: block; }
-        .bq-source {
-            display: block; margin-top: 18px; font-size: .82rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: .12em;
-            color: var(--logo-orange); opacity: 0.75;
-        }
-        body.dark-mode blockquote {
-            background: rgba(22,16,8,0.95); border-color: rgba(255,107,0,0.22);
-            box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 8px 24px rgba(255,107,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04);
-            color: #f9f9ff;
-        }
-        body.dark-mode blockquote::before { opacity: 0.18; }
-        body.dark-mode .bq-source { color: var(--logo-orange); opacity: 0.65; }
+        body.dark-mode blockquote { background: rgba(22, 16, 8, 0.95); color: #f9f9ff; }
 
         /* ── SHARE BOX ── */
         .share-box {
-            margin: 80px auto; padding: 50px 40px;
-            background: rgba(255,255,255,0.65);
-            border: 1.5px solid rgba(255,255,255,0.7); border-radius: 28px;
-            text-align: center; backdrop-filter: saturate(180%) blur(20px);
-            box-shadow: 0 16px 60px rgba(255,26,140,0.1), 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
-            position: relative; overflow: hidden;
+            margin: 80px auto; padding: 50px 40px; background: rgba(255,255,255,0.65);
+            border: 1.5px solid rgba(255,255,255,0.7); border-radius: 28px; text-align: center;
         }
-        .share-box::before {
-            content: ''; position: absolute; right: -60px; top: -60px;
-            width: 250px; height: 250px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,26,140,0.12) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        body.dark-mode .share-box {
-            background: rgba(30,30,50,0.6); border-color: rgba(255,255,255,0.1);
-            box-shadow: 0 16px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-        .share-box h2 {
-            font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin: 0 0 28px;
-            background: linear-gradient(90deg, var(--logo-orange), var(--logo-pink));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .share-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: nowrap; max-width: 680px; margin: 0 auto; }
+        .share-grid { display: flex; justify-content: center; gap: 16px; }
         .share-btn {
-            font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 1rem;
-            text-transform: uppercase; letter-spacing: .04em;
-            padding: 14px 20px; border-radius: 50px; flex: 1;
-            border: 1.5px solid rgba(255,255,255,0.35);
-            text-decoration: none; cursor: pointer; backdrop-filter: blur(8px);
-            box-shadow: 0 6px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.25);
+            font-family: 'Poppins', sans-serif; font-weight: 900; padding: 14px 20px; border-radius: 50px;
+            flex: 1; border: 1.5px solid rgba(255,255,255,0.35); text-decoration: none; cursor: pointer;
             display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            white-space: nowrap; position: relative; overflow: hidden;
-            transition: box-shadow .25s, filter .2s, transform .25s var(--ease-spring);
         }
-        .share-btn:hover { filter: brightness(1.12) saturate(1.25); transform: translateY(-3px) scale(1.04); }
-        .share-btn:active { filter: brightness(0.95); transform: scale(0.97); transition-duration: .08s; }
-        .s-x  { background: rgba(0,0,0,0.88); color: #fff; }
-        .s-x:hover  { box-shadow: 0 12px 36px rgba(0,0,0,0.4); }
-        .s-fb { background: rgba(24,119,242,0.92); color: #fff; }
-        .s-fb:hover { box-shadow: 0 12px 36px rgba(24,119,242,0.5); }
-        .s-link { background: linear-gradient(135deg, var(--logo-orange), var(--logo-pink)); color: #fff; border-color: rgba(255,255,255,0.35); }
-        .s-link:hover { box-shadow: 0 12px 36px rgba(255,26,140,0.45); }
-
-        @keyframes burst { 0% { opacity:.7; transform:scale(0); } 70% { opacity:.4; transform:scale(1.8); } 100% { opacity:0; transform:scale(2.4); } }
-        .copy-burst { position:absolute; inset:0; border-radius:50px; background:rgba(255,255,255,0.4); pointer-events:none; transform:scale(0); opacity:0; }
-        .copy-burst.animate { animation: burst .5s var(--ease-out) forwards; }
-        #copyText { pointer-events:none; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:900; letter-spacing:.04em; white-space:nowrap; transition:opacity .22s ease, transform .22s var(--ease-out); }
-        #copyText.hide { opacity:0; transform:translateY(-6px); }
-        .s-link.copied { background: linear-gradient(135deg,#0db860,#00cfaa); box-shadow:0 12px 36px rgba(13,184,96,0.45); }
+        .s-link { background: linear-gradient(135deg, var(--logo-orange), var(--logo-pink)); color: #fff; }
 
         /* ── SCROLL REVEAL ── */
-        .reveal { opacity:0; transform:translateY(32px); transition:opacity .65s var(--ease-out), transform .65s var(--ease-out); }
-        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px) scale(0.96);
+            transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+            will-change: transform, opacity;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 1024px) {
-            .article-container { max-width: 720px; padding: 0 24px; }
-            blockquote { font-size: 1.3rem; padding: 44px 44px 36px 52px; }
-        }
+        @media (max-width: 1024px) { .article-container { max-width: 720px; } }
         @media (max-width: 768px) {
-            nav { height: 68px; padding: 0 16px; grid-template-columns: auto 1fr auto; }
-            .nav-logo { height: 48px; }
-            .back-btn { font-size: .7rem; padding: 8px 14px; }
-            .dark-btn { font-size: .72rem; padding: 8px 14px; }
-            .article-hero { height: 52vh; min-height: 300px; padding-bottom: 36px; }
-            .hero-content { width: 92%; }
-            .article-title { font-size: clamp(1.7rem, 5.5vw, 3rem); }
-            .category-sticker { font-size: .78rem; padding: 7px 16px; margin-bottom: 14px; }
-            .article-container { padding: 0 24px; margin: 36px auto; }
-            .meta-info { padding: 14px 18px; gap: 10px; font-size: .8rem; border-radius: 16px; flex-direction: column; margin-bottom: 36px; }
-            .article-body p { font-size: 1.08rem; margin-bottom: 1.7rem; line-height: 1.7; }
-            .article-body p:first-of-type::first-letter { font-size: 5rem; padding: 12px 12px 0 0; }
-            .article-body h2 { font-size: 1.5rem; padding: 7px 18px; box-shadow: 4px 4px 0 var(--logo-cyan); }
-            .article-body h3 { font-size: 1.2rem; margin: 32px 0 10px; }
-            .blockquote-wrapper { margin: 48px 0; }
-            blockquote { font-size: 1.18rem; padding: 40px 32px 32px 44px; border-radius: 20px; }
-            .share-box { padding: 32px 20px; border-radius: 20px; margin: 50px auto; }
-            .share-box h2 { font-size: 1.3rem; margin-bottom: 20px; }
-            .share-grid { flex-direction: column; gap: 10px; align-items: stretch; max-width: 380px; margin: 0 auto; }
-            .share-btn { flex: unset; width: 100%; padding: 14px 20px; font-size: .92rem; }
-        }
-        @media (max-width: 480px) {
-            nav { height: 58px; padding: 0 12px; }
-            .nav-logo { height: 38px; }
-            .back-btn { font-size: .65rem; padding: 7px 12px; gap: 4px; }
-            .dark-btn { font-size: .68rem; padding: 7px 12px; }
-            .progress-container { height: 3px; }
-            .article-hero { height: 46vh; min-height: 250px; padding-bottom: 24px; }
-            .hero-content { width: 94%; }
-            .article-title { font-size: clamp(1.35rem, 6.5vw, 2.1rem); letter-spacing: -.02em; line-height: 1.05; }
-            .hero-skeleton-title { height: 40px; }
-            .category-sticker { font-size: .7rem; padding: 5px 13px; margin-bottom: 10px; }
-            .article-container { padding: 0 14px; margin: 24px auto; }
-            .meta-info { padding: 12px 14px; gap: 8px; font-size: .75rem; border-radius: 14px; margin-bottom: 28px; flex-direction: column; }
-            .article-body p { font-size: .97rem; margin-bottom: 1.4rem; line-height: 1.68; }
-            .article-body p:first-of-type::first-letter { font-size: 4rem; line-height: .78; padding: 8px 10px 0 0; }
-            .article-body h2 { font-size: 1.15rem; padding: 6px 14px; box-shadow: 3px 3px 0 var(--logo-cyan); margin: 40px 0 12px; transform: none; }
-            .article-body h3 { font-size: 1.05rem; margin: 26px 0 8px; }
-            .blockquote-wrapper { margin: 36px 0; }
-            blockquote { font-size: 1rem; line-height: 1.65; padding: 44px 20px 24px 32px; border-radius: 18px; font-weight: 700; }
-            blockquote::before { font-size: 5rem; top: 6px; left: 20px; }
-            .bq-source { font-size: .74rem; }
-            .share-box { margin: 36px auto; padding: 24px 14px; border-radius: 16px; }
-            .share-box h2 { font-size: 1.1rem; margin-bottom: 16px; }
-            .share-grid { flex-direction: column; gap: 10px; align-items: stretch; max-width: 100%; }
-            .share-btn { flex: unset; padding: 14px 20px; font-size: .84rem; justify-content: center; border-radius: 50px; width: 100%; }
-        }
-        @media (max-width: 360px) {
-            .article-title { font-size: clamp(1.15rem, 7vw, 1.6rem); }
-            .article-body p { font-size: .92rem; }
-            blockquote { font-size: .95rem; padding: 42px 14px 18px 28px; }
-            .share-btn { font-size: .79rem; padding: 13px 16px; }
+            nav { height: 70px; padding: 0 4%; }
+            .nav-logo { height: 54px; }
+            .nav-links, .search-container { display: none; }
+            .nav-burger { display: flex; order: 3; }
+            .dark-mode-container { transform: scale(0.8); order: 1; }
+            .article-hero { height: 52vh; }
+            .article-title { font-size: 2.2rem; }
+            .meta-info { flex-direction: column; }
+            .share-grid { flex-direction: column; }
         }
     </style>
 </head>
@@ -378,306 +291,206 @@
 </div>
 
 <nav>
-    <div class="nav-left">
-        <a href="https://dignmedia.github.io" class="back-btn"><span>←</span><span>Accueil</span></a>
+    <a href="https://dignmedia.github.io">
+        <img src="logo-valentin.png" alt="DIGN.MÉDIA" class="nav-logo">
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="https://dignmedia.github.io" class="nav-home">Accueil</a></li>
+        <li><a href="allarticles.html">Articles</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="lives.html">Lives</a></li>
+        <li class="nav-dropdown">
+            <a href="#">Autres ▾</a>
+            <div class="nav-dropdown-content">
+                <a href="apropos.html">À propos</a>
+                <a href="contact.html">Nous contacter</a>
+            </div>
+        </li>
+    </ul>
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Rechercher...">
+        <button class="search-icon-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
     </div>
-    <div class="nav-center" style="display:flex;justify-content:center;align-items:center;">
-        <a href="https://dignmedia.github.io"><img src="logo-valentin.png" alt="VALENTIN V." class="nav-logo"></a>
-    </div>
-    <div class="nav-right">
-        <button class="dark-btn" id="dark-toggle">Mode Sombre</button>
+
+    <button class="nav-burger" id="nav-burger">
+        <span></span><span></span><span></span>
+    </button>
+
+    <div class="dark-mode-container">
+        <span class="dark-mode-label" id="dark-mode-text">Mode sombre</span>
+        <label class="dark-switch">
+            <input type="checkbox" id="dark-toggle">
+            <span class="dark-slider"></span>
+        </label>
     </div>
 </nav>
 
-<header class="article-hero" id="articleHero">
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+    <a href="https://dignmedia.github.io">🏠 Accueil</a>
+    <a href="allarticles.html">📰 Articles</a>
+    <a href="podcasts.html">🎙️ Podcasts</a>
+    <a href="lives.html">📺 Lives</a>
+    <a href="apropos.html">ℹ️ À propos</a>
+    <a href="contact.html">✉️ Contact</a>
+</div>
+
+<header class="article-hero">
     <div class="hero-bg" id="heroBg"></div>
     <div class="hero-overlay"></div>
-    <div class="hero-content" id="heroContent">
-        <!-- Skeleton pendant le chargement -->
-        <div class="hero-skeleton-pill" id="skPill"></div>
-        <div class="hero-skeleton-title" id="skTitle1"></div>
-        <div class="hero-skeleton-title short" id="skTitle2"></div>
+    <div class="hero-content">
+        <div class="category-sticker reveal" id="artCategory">Chargement...</div>
+        <h1 class="article-title reveal" id="artTitle">...</h1>
     </div>
 </header>
 
 <main class="article-container">
-    <div id="metaWrapper">
-        <div class="skeleton-meta"></div>
+    <div class="meta-info reveal">
+        <span id="artAuthor">✍️ Par ...</span>
+        <span id="artDate">📅 ...</span>
+        <span id="artReadTime">⏱️ ...</span>
     </div>
+
     <section class="article-body" id="artContent">
-        <div class="skeleton-line h1"></div>
-        <div class="skeleton-line h2"></div>
-        <div class="skeleton-line h3"></div>
-        <div class="skeleton-line ht"></div>
-        <div class="skeleton-line h1"></div>
-        <div class="skeleton-line h2"></div>
-        <div class="skeleton-line h3"></div>
+        <p class="reveal">Chargement du contenu de l'article...</p>
     </section>
 
-    <section class="share-box reveal" id="shareBox" style="display:none;">
-        <h2>Partager l'article</h2>
-        <div class="share-grid">
-            <a href="#" id="shareX" target="_blank" rel="noopener noreferrer" class="share-btn s-x">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                X (Twitter)
-            </a>
-            <a href="#" id="shareFB" target="_blank" rel="noopener noreferrer" class="share-btn s-fb">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Facebook
-            </a>
-            <button onclick="copyLink()" id="copyBtn" class="share-btn s-link" aria-label="Copier le lien">
-                <div class="copy-burst" id="copyBurst"></div>
-                <span id="copyText">Copier le lien</span>
-            </button>
+    <section class="share-box reveal">
+        <h2 class="reveal">Partager l'article</h2>
+        <div class="share-grid reveal">
+            <button onclick="copyLink()" id="copyBtn" class="share-btn s-link">Copier le lien</button>
         </div>
     </section>
 </main>
 
-<footer id="pageFooter" style="display:none;
-    margin-top: 0; padding: 40px max(5%, env(safe-area-inset-left));
-    background: rgba(255,255,255,0.55); border-top: 1.5px solid rgba(255,255,255,0.6);
-    backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
-    box-shadow: 0 -4px 30px rgba(0,0,0,0.05); text-align: center;
-    font-family: 'Poppins', sans-serif; transition: background .5s, border-color .5s;">
-    <a href="https://dignmedia.github.io" style="text-decoration:none;">
-        <span id="footerBrand" style="font-weight:900;font-size:1.3rem;letter-spacing:-.01em;color:#111;transition:color .5s;">dign.média</span>
-    </a>
-    <p style="margin:10px 0 0;font-size:.78rem;font-weight:600;color:rgba(0,0,0,0.38);letter-spacing:.04em;text-transform:uppercase;">
-        © 2026 dign.média — Tous droits réservés.
-    </p>
+<script>
+(function () {
+    'use strict';
+
+    /* ─── DARK MODE SYNC ─── */
+    const darkBtn = document.getElementById('dark-toggle');
+    const darkText = document.getElementById('dark-mode-text');
+    function setDarkMode(isDark) {
+        document.body.classList.toggle('dark-mode', isDark);
+        darkBtn.checked = isDark;
+        darkText.textContent = isDark ? 'Mode clair' : 'Mode sombre';
+    }
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    setDarkMode(systemPrefersDark.matches);
+    darkBtn.addEventListener('change', () => setDarkMode(darkBtn.checked));
+    systemPrefersDark.addEventListener('change', e => setDarkMode(e.matches));
+
+    /* ─── UI HANDLERS ─── */
+    var burger = document.getElementById('nav-burger');
+    var mobileMenu = document.getElementById('nav-mobile-menu');
+    burger.addEventListener('click', function () {
+        burger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+    });
+
+    window.addEventListener('scroll', () => {
+        const s = document.body.scrollTop || document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        document.getElementById('readingProgress').style.width = (s / h * 100) + '%';
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    function initReveal() { document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el)); }
+
+    /* ─── SANITY FETCH ─── */
+    const PROJECT_ID = 'jf7j0hvz';
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('s');
+
+    if (!slug) {
+        document.getElementById('artTitle').textContent = "Article introuvable";
+    } else {
+        const query = encodeURIComponent(`*[_type == "post" && slug.current == "${slug}"][0]{
+            title, publishedAt, body,
+            "imageUrl": mainImage.asset->url,
+            "author": author->name,
+            "categories": categories[]->title
+        }`);
+        const url = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/production?query=${query}`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                const doc = data.result;
+                if (!doc) return;
+
+                document.getElementById('artTitle').textContent = doc.title;
+                document.getElementById('artCategory').textContent = doc.categories?.[0] || 'Actu';
+                document.getElementById('artAuthor').textContent = `✍️ Par ${doc.author || 'Rédaction'}`;
+                document.getElementById('artDate').textContent = `📅 ${new Date(doc.publishedAt).toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'})}`;
+                document.getElementById('heroBg').style.backgroundImage = `url('${doc.imageUrl}')`;
+                
+                // Content & Reading Time
+                let totalWords = 0;
+                const contentDiv = document.getElementById('artContent');
+                
+                contentDiv.innerHTML = doc.body.map(block => {
+                    if (block._type !== 'block' || !block.children) return '';
+                    
+                    const html = block.children.map(child => {
+                        let text = child.text.replace(/\n/g, '<br>');
+                        totalWords += child.text.trim().split(/\s+/).length;
+
+                        if (child.marks) {
+                            child.marks.forEach(m => {
+                                if (m === 'strong') text = `<strong>${text}</strong>`;
+                                if (m === 'em') text = `<em>${text}</em>`;
+                                if (m === 'underline') text = `<u>${text}</u>`;
+                                
+                                const linkDef = block.markDefs?.find(def => def._key === m);
+                                if (linkDef && linkDef._type === 'link') {
+                                    text = `<a href="${linkDef.href}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+                                }
+                            });
+                        }
+                        return text;
+                    }).join('');
+
+                    if (block.listItem === 'bullet') return `<li class="reveal">${html}</li>`;
+                    if (block.style === 'h2') return `<h2 class="reveal">${html}</h2>`;
+                    if (block.style === 'h3') return `<h3 class="reveal">${html}</h3>`;
+                    if (block.style === 'blockquote') return `<div class="blockquote-wrapper reveal"><blockquote class="reveal">${html}</blockquote></div>`;
+                    return `<p class="reveal">${html}</p>`;
+                }).join('').replace(/<\/li><li/g, '</li><li');
+
+                const minutes = Math.max(1, Math.ceil(totalWords / 200));
+                document.getElementById('artReadTime').textContent = `⏱️ ${minutes} min de lecture`;
+
+                initReveal();
+            });
+    }
+
+    window.copyLink = function() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const btn = document.getElementById('copyBtn');
+            btn.textContent = 'COPIÉ ! ✅';
+            setTimeout(() => { btn.textContent = 'Copier le lien'; }, 2000);
+        });
+    };
+}());
+</script>
+
+<footer style="padding: 40px max(5%, env(safe-area-inset-left)); background: rgba(255,255,255,0.55); border-top: 1.5px solid rgba(255,255,255,0.6); backdrop-filter: saturate(180%) blur(20px); text-align: center; font-family: 'Poppins', sans-serif; transition: background .5s;">
+    <a href="https://dignmedia.github.io" style="text-decoration:none;"><span style="font-weight: 900; font-size: 1.3rem; color: #111;">dign.média</span></a>
+    <p style="margin: 10px 0 0; font-size: .78rem; font-weight: 600; color: rgba(0,0,0,0.38); text-transform: uppercase;">© 2026 dign.média — Tous droits réservés.</p>
 </footer>
 
 <style>
 body.dark-mode footer { background: rgba(10,8,20,0.7) !important; border-top-color: rgba(255,255,255,0.08) !important; }
 body.dark-mode footer p { color: rgba(255,255,255,0.28) !important; }
-body.dark-mode #footerBrand { color: #fff !important; }
+body.dark-mode footer span { color: #fff !important; }
 </style>
 
-<script>
-(function () {
-    /* ── CONFIG SANITY (même projet que index.html) ── */
-    var PROJECT_ID = 'jf7j0hvz';
-    var DATASET    = 'production';
-    var API_VER    = 'v2021-10-21';
-
-    /* ── DARK MODE ── */
-    var darkBtn = document.getElementById('dark-toggle');
-    darkBtn.addEventListener('click', function () {
-        document.body.classList.toggle('dark-mode');
-        darkBtn.textContent = document.body.classList.contains('dark-mode') ? 'Mode Clair' : 'Mode Sombre';
-    });
-
-    /* ── BARRE DE LECTURE ── */
-    window.addEventListener('scroll', function () {
-        var s = document.body.scrollTop || document.documentElement.scrollTop;
-        var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        document.getElementById('readingProgress').style.width = (h > 0 ? (s / h * 100) : 0) + '%';
-    });
-
-    /* ── RÉCUPÉRER LE SLUG DANS L'URL ── */
-    var params = new URLSearchParams(window.location.search);
-    var slug   = params.get('s') || params.get('slug');
-
-    if (!slug) {
-        showError('Aucun article spécifié. <a href="https://dignmedia.github.io" style="color:var(--logo-orange)">Retour à l\'accueil</a>');
-        return;
-    }
-
-    /* ── QUERY GROQ ── */
-    // On récupère tous les champs utiles selon ton schéma Sanity
-    var query = encodeURIComponent(
-        '*[_type == "post" && slug.current == "' + slug + '"][0]{'
-      + '  title,'
-      + '  slug,'
-      + '  publishedAt,'
-      + '  "imageUrl": mainImage.asset->url,'
-      + '  "authorName": author->name,'
-      + '  "categoryTitle": categories[0]->title,'
-      + '  body'
-      + '}'
-    );
-
-    var API_URL = 'https://' + PROJECT_ID + '.api.sanity.io/' + API_VER + '/data/query/' + DATASET + '?query=' + query;
-
-    fetch(API_URL)
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-            var article = data.result;
-            if (!article) {
-                showError('Article introuvable. <a href="https://dignmedia.github.io" style="color:var(--logo-orange)">Retour à l\'accueil</a>');
-                return;
-            }
-            renderArticle(article);
-        })
-        .catch(function (err) {
-            console.error('Sanity fetch error:', err);
-            showError('Impossible de charger l\'article.');
-        });
-
-    /* ── RENDU ── */
-    function renderArticle(a) {
-        // Titre de l'onglet
-        document.title = (a.title || 'Article') + ' — VALENTIN V.';
-
-        // Hero image
-        var heroBg = document.getElementById('heroBg');
-        if (a.imageUrl) {
-            heroBg.style.backgroundImage = "url('" + a.imageUrl + "')";
-        }
-
-        // Hero content (remplace les skeletons)
-        var heroContent = document.getElementById('heroContent');
-        var catLabel = a.categoryTitle || 'Article';
-        heroContent.innerHTML =
-            '<div class="category-sticker">' + escHTML(catLabel) + '</div>'
-          + '<h1 class="article-title">' + escHTML(a.title || 'Sans titre') + '</h1>';
-
-        // Meta
-        var metaWrapper = document.getElementById('metaWrapper');
-        var dateStr = formatDate(a.publishedAt);
-        var authorStr = a.authorName ? '✍️ Par ' + escHTML(a.authorName) : '✍️ Par Valentin V.';
-        var readTime = estimateReadTime(a.body);
-        metaWrapper.innerHTML =
-            '<div class="meta-info reveal">'
-          + '<span>' + authorStr + '</span>'
-          + (dateStr ? '<span>📅 ' + dateStr + '</span>' : '')
-          + '<span>⏱️ ' + readTime + ' min de lecture</span>'
-          + '</div>';
-
-        // Contenu de l'article
-        var artContent = document.getElementById('artContent');
-        artContent.innerHTML = renderBody(a.body);
-
-        // Share box + footer
-        document.getElementById('shareBox').style.display = '';
-        document.getElementById('pageFooter').style.display = '';
-
-        // Partage social
-        var url   = encodeURIComponent(window.location.href);
-        var title = encodeURIComponent(a.title || '');
-        document.getElementById('shareX').href  = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
-        document.getElementById('shareFB').href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
-
-        // Scroll reveal
-        initReveal();
-    }
-
-    /* ── PORTABLE TEXT → HTML (champs body Sanity) ── */
-    function renderBody(blocks) {
-        if (!blocks || !Array.isArray(blocks)) return '<p>Contenu indisponible.</p>';
-        return blocks.map(function (block) {
-            if (block._type === 'block') {
-                var style = block.style || 'normal';
-                var inner = renderSpans(block.children || []);
-                if (style === 'h2') return '<h2>' + inner + '</h2>';
-                if (style === 'h3') return '<h3>' + inner + '</h3>';
-                if (style === 'blockquote') {
-                    return '<div class="blockquote-wrapper"><blockquote><span class="bq-text">' + inner + '</span></blockquote></div>';
-                }
-                return '<p>' + inner + '</p>';
-            }
-            // Images inline
-            if (block._type === 'image' && block.asset && block.asset.url) {
-                return '<img src="' + block.asset.url + '" style="width:100%;border-radius:18px;margin:32px 0;" alt="" loading="lazy">';
-            }
-            return '';
-        }).join('');
-    }
-
-    function renderSpans(spans) {
-        return spans.map(function (span) {
-            if (!span.text) return '';
-            var text = escHTML(span.text);
-            var marks = span.marks || [];
-            if (marks.indexOf('strong') !== -1) text = '<strong>' + text + '</strong>';
-            if (marks.indexOf('em') !== -1) text = '<em>' + text + '</em>';
-            if (marks.indexOf('underline') !== -1) text = '<u>' + text + '</u>';
-            return text;
-        }).join('');
-    }
-
-    /* ── HELPERS ── */
-    function escHTML(str) {
-        return String(str)
-            .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    function formatDate(dateStr) {
-        if (!dateStr) return '';
-        try {
-            return new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-        } catch(e) { return ''; }
-    }
-
-    function estimateReadTime(blocks) {
-        if (!blocks || !Array.isArray(blocks)) return 2;
-        var words = blocks.reduce(function (acc, b) {
-            if (b._type === 'block' && b.children) {
-                return acc + b.children.reduce(function (a, s) { return a + (s.text ? s.text.split(/\s+/).length : 0); }, 0);
-            }
-            return acc;
-        }, 0);
-        return Math.max(1, Math.ceil(words / 200));
-    }
-
-    function showError(msg) {
-        // Retire skeletons
-        document.getElementById('heroContent').innerHTML = '<h1 class="article-title" style="font-size:2rem;">Article non trouvé</h1>';
-        document.getElementById('metaWrapper').innerHTML = '';
-        document.getElementById('artContent').innerHTML = '<div class="error-box">' + msg + '</div>';
-        document.getElementById('pageFooter').style.display = '';
-    }
-
-    /* ── SCROLL REVEAL ── */
-    function initReveal() {
-        var els = document.querySelectorAll('.reveal');
-        if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('visible'); }); return; }
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-            });
-        }, { threshold: 0.12 });
-        els.forEach(function(el){ observer.observe(el); });
-    }
-
-    /* ── COPIER LE LIEN ── */
-    var copyTimeout = null;
-    window.copyLink = function () {
-        var btn      = document.getElementById('copyBtn');
-        var burst    = document.getElementById('copyBurst');
-        var copyText = document.getElementById('copyText');
-        if (btn.classList.contains('copied')) return;
-
-        var doAnimate = function () {
-            burst.classList.remove('animate'); void burst.offsetWidth; burst.classList.add('animate');
-            copyText.classList.add('hide');
-            setTimeout(function () {
-                btn.classList.add('copied');
-                copyText.textContent = 'COPIÉ ! ✅';
-                copyText.style.transform = 'translateY(6px)'; copyText.style.opacity = '0';
-                void copyText.offsetWidth;
-                copyText.classList.remove('hide'); copyText.style.transform = ''; copyText.style.opacity = '';
-            }, 220);
-            clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(function () {
-                copyText.classList.add('hide');
-                setTimeout(function () {
-                    btn.classList.remove('copied'); copyText.textContent = 'Copier le lien';
-                    copyText.style.transform = 'translateY(6px)'; copyText.style.opacity = '0';
-                    void copyText.offsetWidth;
-                    copyText.classList.remove('hide'); copyText.style.transform = ''; copyText.style.opacity = '';
-                }, 220);
-            }, 2500);
-        };
-
-        navigator.clipboard.writeText(window.location.href).then(doAnimate).catch(function () {
-            var ta = document.createElement('textarea');
-            ta.value = window.location.href; document.body.appendChild(ta); ta.select();
-            document.execCommand('copy'); document.body.removeChild(ta); doAnimate();
-        });
-    };
-}());
-</script>
 </body>
 </html>
