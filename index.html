@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="fr">
+ ---<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -653,9 +653,9 @@
             .nav-burger { display: flex; }
             nav { height: 56px; padding: 0 4%; }
             .nav-logo { height: 32px; }
-
-            /* Carrousel agrandi sur mobile */
-            .carousel-wrapper { aspect-ratio: 1 / 1.1; }
+            
+            /* Carousel agrandi sur mobile (plus haut) */
+            .carousel-wrapper { aspect-ratio: 1 / 1.35; }
             
             /* Newsletter adaptée mobile */
             .newsletter-box { 
@@ -687,27 +687,26 @@
                 padding: 16px 32px;
             }
             
-            /* Footer responsive corrigé pour éviter le dépassement */
+            /* Footer responsive : correction overflow */
             footer {
                 padding: 40px 5%;
                 flex-direction: column;
                 align-items: center;
-                text-align: center;
-                gap: 25px;
+                gap: 20px;
             }
             .footer-links { 
                 justify-content: center; 
                 flex-direction: column; 
                 align-items: center; 
-                gap: 12px;
+                gap: 15px;
                 text-align: center;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 width: 100%;
             }
             
             .section-title { font-size: 2rem; }
-            /* Cartes légèrement agrandies sur tablette/mobile */
-            :root { --card-width: 320px; }
+            /* Cartes d'actus légèrement agrandies en largeur */
+            :root { --card-width: 345px; }
             
             /* Burger menu simple */
             .nav-burger {
@@ -719,8 +718,8 @@
             }
         }
         @media (max-width: 480px) {
-            /* Cartes agrandies sur petit mobile */
-            :root { --card-width: 300px; }
+            /* Cartes d'actus légèrement agrandies en largeur sur mobile étroit */
+            :root { --card-width: 310px; }
             .section-title { font-size: 1.4rem; padding: 8px 18px; }
             .nav-mobile-menu a { font-size: 24px; }
             
