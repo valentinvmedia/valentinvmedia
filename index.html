@@ -1,3 +1,5 @@
+--- START OF FILE Paste May 25, 2026 - 7:04PM ---
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -651,6 +653,9 @@
             .nav-burger { display: flex; }
             nav { height: 56px; padding: 0 4%; }
             .nav-logo { height: 32px; }
+
+            /* Carrousel agrandi sur mobile */
+            .carousel-wrapper { aspect-ratio: 1 / 1.1; }
             
             /* Newsletter adaptée mobile */
             .newsletter-box { 
@@ -682,7 +687,14 @@
                 padding: 16px 32px;
             }
             
-            /* Footer responsive */
+            /* Footer responsive corrigé pour éviter le dépassement */
+            footer {
+                padding: 40px 5%;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 25px;
+            }
             .footer-links { 
                 justify-content: center; 
                 flex-direction: column; 
@@ -690,13 +702,12 @@
                 gap: 12px;
                 text-align: center;
                 flex-wrap: wrap;
-            }
-            footer {
-                padding: 40px 5%;
+                width: 100%;
             }
             
             .section-title { font-size: 2rem; }
-            :root { --card-width: 290px; }
+            /* Cartes légèrement agrandies sur tablette/mobile */
+            :root { --card-width: 320px; }
             
             /* Burger menu simple */
             .nav-burger {
@@ -708,7 +719,8 @@
             }
         }
         @media (max-width: 480px) {
-            :root { --card-width: 260px; }
+            /* Cartes agrandies sur petit mobile */
+            :root { --card-width: 300px; }
             .section-title { font-size: 1.4rem; padding: 8px 18px; }
             .nav-mobile-menu a { font-size: 24px; }
             
